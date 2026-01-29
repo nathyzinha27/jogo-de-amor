@@ -3,7 +3,7 @@ from flask import Flask, session, request, redirect, url_for, render_template
 app = Flask(__name__)
 app.secret_key = "chave-secreta-super-romantica"
 
-# Fases normais do jogo (sem incluir o pedido final)
+# Fases normais do jogo
 fases = [
     {"texto": "Antes de tudo começar…", "pergunta": "O que você sentiu quando me viu pela primeira vez?"},
     {"texto": "Nem tudo começou com certeza.", "pergunta": "O que te fez querer continuar falando comigo?"},
@@ -35,16 +35,20 @@ pedido_final = {
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    # Inicializa fase na sessão
+    # Inicializa sessão
     if "fase" not in session:
         session["fase"] = 0
+        session["respostas"] = []  # guarda respostas
 
-    # POST: avançar fase
     if request.method == "POST":
+        resposta = request.form.get("resposta", "").strip()
+        session["respostas"].append(resposta)
         session["fase"] += 1
-        # Se passou da última fase, vai para pedido final
+
+        # Se terminou todas as fases, vai para pedido final
         if session["fase"] >= len(fases):
             return redirect(url_for("pedido"))
+
         return redirect(url_for("index"))
 
     # GET: garantir índice válido
@@ -61,14 +65,13 @@ def index():
         total_fases=len(fases)
     )
 
-@app.route("/pedido", methods=["GET"])
+@app.route("/pedido", methods=["GET", "POST"])
 def pedido():
-    # Página do pedido final
+    # Pedido final com sim/nao
     return render_template("pedido.html", pedido=pedido_final)
 
 @app.route("/resposta", methods=["POST"])
 def resposta():
-    # Captura a resposta do pedido final
     escolha = request.form.get("escolha")
     if escolha == "sim":
         return render_template("sim.html")
@@ -76,7 +79,6 @@ def resposta():
 
 @app.route("/reset")
 def reset():
-    # Função para reiniciar o jogo
     session.clear()
     return redirect(url_for("index"))
 
