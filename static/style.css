@@ -1,0 +1,53 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle, #ffb6c1, #ff69b4);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pedido-box {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 0 40px rgba(255,105,180,0.6);
+}
+
+input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    width: 80%;
+}
+
+button {
+    font-size: 18px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 15px;
+}
+
+.sim {
+    background: linear-gradient(45deg, #ff4d6d, #ff85a2);
+    color: white;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.nao {
+    background: rgba(255,255,255,0.3);
+    color: white;
+    position: absolute;
+}
