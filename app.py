@@ -3,7 +3,7 @@ from flask import Flask, session, request, redirect, url_for, render_template
 app = Flask(__name__)
 app.secret_key = "chave-secreta-super-romantica"
 
-# Lista completa de fases com perguntas
+# Fases normais do jogo (sem incluir o pedido final)
 fases = [
     {"texto": "Antes de tudo começar…", "pergunta": "O que você sentiu quando me viu pela primeira vez?"},
     {"texto": "Nem tudo começou com certeza.", "pergunta": "O que te fez querer continuar falando comigo?"},
@@ -23,43 +23,37 @@ fases = [
     {"texto": "Entre erros e acertos…", "pergunta": "O que você acha que aprendemos juntos?"},
     {"texto": "O amor também é escolha.", "pergunta": "Por que você escolheria ficar comigo todos os dias?"},
     {"texto": "Depois de tudo isso…", "pergunta": "Você sente que esse amor é real?"},
-    # Novas perguntas antes do pedido final
     {"texto": "Chegamos até aqui, e cada momento valeu a pena…", "pergunta": "Qual foi a coisa mais linda que você sentiu durante nossa história?"},
-    {"texto": "Você é tudo que eu sempre quis…", "pergunta": "O que te faz sorrir quando pensa em nós dois?"},
-    # Pedido final
-    {"texto": "Agora eu preciso te perguntar algo muito importante…", "pergunta": "Você aceita colocar o anel no meu dedo e continuar nossa história para sempre?"}
+    {"texto": "Você é tudo que eu sempre quis…", "pergunta": "O que te faz sorrir quando pensa em nós dois?"}
 ]
+
+# Pedido final separado
+pedido_final = {
+    "texto": "Agora eu preciso te perguntar algo muito importante…",
+    "pergunta": "Você aceita colocar o anel no meu dedo e continuar nossa história para sempre?"
+}
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    # Inicializa fase na sessão se não existir
     if "fase" not in session:
         session["fase"] = 0
 
-    # POST: avançar fase
     if request.method == "POST":
         session["fase"] += 1
         if session["fase"] >= len(fases):
             return redirect(url_for("pedido"))
         return redirect(url_for("index"))
 
-    # GET: garante fase válida
     fase_atual = session.get("fase", 0)
-    if fase_atual >= len(fases):
-        fase_atual = len(fases) - 1
-
     fase = fases[fase_atual]
+    return render_template("index.html", fase=fase, fase_num=fase_atual+1, total_fases=len(fases))
 
-    return render_template("index.html", fase=fase)
-
-@app.route("/pedido")
+@app.route("/pedido", methods=["GET"])
 def pedido():
-    # Página do pedido final
-    return render_template("pedido.html")
+    return render_template("pedido.html", pedido=pedido_final)
 
 @app.route("/resposta", methods=["POST"])
 def resposta():
-    # Captura a resposta do pedido final
     escolha = request.form.get("escolha")
     if escolha == "sim":
         return render_template("sim.html")
@@ -67,7 +61,6 @@ def resposta():
 
 @app.route("/reset")
 def reset():
-    # Função para reiniciar o jogo
     session.clear()
     return redirect(url_for("index"))
 
