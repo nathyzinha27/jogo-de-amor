@@ -3,17 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Fases do Amor</title>
-    <!-- CSS carregando via Flask -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="pedido-box">
-        <!-- Texto da fase -->
         <h2>{{ fase.texto }}</h2>
-        <!-- Pergunta da fase -->
         <p>{{ fase.pergunta }}</p>
 
-        <!-- Formulário para resposta -->
         <form method="POST">
             <input type="text" name="resposta" placeholder="Digite sua resposta..." required>
             <button type="submit" class="sim">Próxima</button>
