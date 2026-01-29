@@ -3,7 +3,7 @@ from flask import Flask, session, request, redirect, url_for, render_template
 app = Flask(__name__)
 app.secret_key = "chave-secreta-super-romantica"
 
-# Lista completa de fases com texto e pergunta
+# Todas as fases com texto e pergunta
 fases = [
     {"texto": "Antes de tudo começar…", "pergunta": "O que você sentiu quando me viu pela primeira vez?"},
     {"texto": "Nem tudo começou com certeza.", "pergunta": "O que te fez querer continuar falando comigo?"},
@@ -27,18 +27,13 @@ fases = [
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    # Inicializa a fase
     if "fase" not in session:
         session["fase"] = 0
 
     if request.method == "POST":
-        # Avança para a próxima fase
         session["fase"] += 1
-
-        # Se acabar as fases, vai para a página de pedido
         if session["fase"] >= len(fases):
             return redirect(url_for("pedido"))
-
         return redirect(url_for("index"))
 
     fase_atual = session["fase"]

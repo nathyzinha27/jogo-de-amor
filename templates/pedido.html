@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Pedido Especial</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <div class="pedido-card">
-            <h2 class="pedido-titulo">Chegamos ao final das perguntas!</h2>
-            <p class="pedido-texto">Agora me diga… você quer continuar com a surpresa?</p>
+    <div class="pedido-box">
+        <h2>Chegamos ao final das perguntas!</h2>
+        <p>Agora me diga… você quer continuar com a surpresa?</p>
 
-            <form action="{{ url_for('resposta') }}" method="POST">
-                <button type="submit" name="escolha" value="sim" class="btn-sim">Sim</button>
-                <button type="submit" name="escolha" value="nao" class="btn-nao">Não</button>
-            </form>
-        </div>
+        <form action="{{ url_for('resposta') }}" method="POST">
+            <button type="submit" name="escolha" value="sim" class="sim">Sim</button>
+            <button type="submit" name="escolha" value="nao" class="nao">Não</button>
+        </form>
     </div>
 </body>
 </html>

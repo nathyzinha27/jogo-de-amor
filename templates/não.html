@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Resposta Não</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <div class="resposta-card nao">
-            <h2>Tudo bem… 😔</h2>
-            <p>O importante é que cada resposta é sincera. Ainda podemos continuar nos conhecendo!</p>
-        </div>
+    <div class="pedido-box nao">
+        <h2>Tudo bem… 😔</h2>
+        <p>O importante é que cada resposta é sincera. Ainda podemos continuar nos conhecendo!</p>
     </div>
 </body>
 </html>
