@@ -2,13 +2,52 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Resposta Não</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Não...</title>
+    <style>
+        body {
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            background-color: #fff0f5;
+            color: #800040;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffe6f0;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px #ffb3d9;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.3em;
+        }
+        a {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 25px;
+            font-size: 1.1em;
+            border-radius: 10px;
+            background-color: #ff66a3;
+            color: white;
+            text-decoration: none;
+        }
+        a:hover {
+            background-color: #ff3399;
+        }
+    </style>
 </head>
 <body>
-    <div class="pedido-box nao">
-        <h2>Tudo bem… 😔</h2>
-        <p>O importante é que cada resposta é sincera. Ainda podemos continuar nos conhecendo!</p>
+    <div class="container">
+        <h1>💔 Ela disse não… 💔</h1>
+        <p>Mesmo assim, nosso carinho continua… 🌸</p>
+        <a href="{{ url_for('reset') }}">Tentar novamente 🌹</a>
     </div>
 </body>
 </html>
