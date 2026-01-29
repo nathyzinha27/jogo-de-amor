@@ -35,25 +35,40 @@ pedido_final = {
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+    # Inicializa fase na sessão
     if "fase" not in session:
         session["fase"] = 0
 
+    # POST: avançar fase
     if request.method == "POST":
         session["fase"] += 1
+        # Se passou da última fase, vai para pedido final
         if session["fase"] >= len(fases):
             return redirect(url_for("pedido"))
         return redirect(url_for("index"))
 
+    # GET: garantir índice válido
     fase_atual = session.get("fase", 0)
+    if fase_atual >= len(fases):
+        return redirect(url_for("pedido"))
+
     fase = fases[fase_atual]
-    return render_template("index.html", fase=fase, fase_num=fase_atual+1, total_fases=len(fases))
+
+    return render_template(
+        "index.html",
+        fase=fase,
+        fase_num=fase_atual + 1,
+        total_fases=len(fases)
+    )
 
 @app.route("/pedido", methods=["GET"])
 def pedido():
+    # Página do pedido final
     return render_template("pedido.html", pedido=pedido_final)
 
 @app.route("/resposta", methods=["POST"])
 def resposta():
+    # Captura a resposta do pedido final
     escolha = request.form.get("escolha")
     if escolha == "sim":
         return render_template("sim.html")
@@ -61,6 +76,7 @@ def resposta():
 
 @app.route("/reset")
 def reset():
+    # Função para reiniciar o jogo
     session.clear()
     return redirect(url_for("index"))
 
