@@ -2,21 +2,26 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Para Você</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Nosso Jogo 💖</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<div class="pedido-box">
-    <h2>{{ fase.texto }}</h2>
-    <p>{{ fase.pergunta }}</p>
+    <div class="card">
+        <h2 class="pergunta">
+            {{ fase.pergunta }}
+        </h2>
 
-    <form method="post">
-        <input type="text" required placeholder="Escreva o que sentir...">
-        <br><br>
-        <button class="sim">Continuar</button>
-    </form>
-</div>
+        <form method="POST">
+            <input 
+                type="text" 
+                name="resposta" 
+                placeholder="Escreva o que sentir..."
+                required
+            >
+            <button type="submit">Continuar</button>
+        </form>
+    </div>
 
 </body>
 </html>
