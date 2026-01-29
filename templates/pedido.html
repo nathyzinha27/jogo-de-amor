@@ -2,25 +2,20 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Uma última pergunta…</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Pedido Especial</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <div class="pedido-card">
+            <h2 class="pedido-titulo">Chegamos ao final das perguntas!</h2>
+            <p class="pedido-texto">Agora me diga… você quer continuar com a surpresa?</p>
 
-<div class="pedido-box">
-    <h1>Depois de tudo isso…</h1>
-    <p>
-        Letícia Julia da Silva…<br><br>
-        você colocaria uma aliança no meu dedo<br>
-        e caminharia comigo para sempre?
-    </p>
-
-    <form action="/resposta" method="post">
-        <button class="sim" name="escolha" value="sim">Sim 💍</button>
-        <button class="nao" name="escolha" value="nao">Não 😳</button>
-    </form>
-</div>
-
-<script src="/static/fuja.js"></script>
+            <form action="{{ url_for('resposta') }}" method="POST">
+                <button type="submit" name="escolha" value="sim" class="btn-sim">Sim</button>
+                <button type="submit" name="escolha" value="nao" class="btn-nao">Não</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

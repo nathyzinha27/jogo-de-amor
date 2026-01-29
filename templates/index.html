@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Fases do Amor</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>{{ fase.texto }}</h2>
-    <p>{{ fase.pergunta }}</p>
+    <div class="container">
+        <div class="fase-card">
+            <h2 class="fase-texto">{{ fase.texto }}</h2>
+            <p class="fase-pergunta">{{ fase.pergunta }}</p>
 
-    <form method="POST">
-        <input type="text" name="resposta" placeholder="Sua resposta aqui" required>
-        <button type="submit">Próxima</button>
-    </form>
+            <form method="POST">
+                <input type="text" name="resposta" class="input-resposta" placeholder="Digite sua resposta..." required>
+                <button type="submit" class="btn-proxima">Próxima</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
