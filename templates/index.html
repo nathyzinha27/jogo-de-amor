@@ -2,26 +2,15 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Nosso Jogo 💖</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Fases do Amor</title>
 </head>
 <body>
+    <h2>{{ fase.texto }}</h2>
+    <p>{{ fase.pergunta }}</p>
 
-    <div class="card">
-        <h2 class="pergunta">
-            {{ fase.pergunta }}
-        </h2>
-
-        <form method="POST">
-            <input 
-                type="text" 
-                name="resposta" 
-                placeholder="Escreva o que sentir..."
-                required
-            >
-            <button type="submit">Continuar</button>
-        </form>
-    </div>
-
+    <form method="POST">
+        <input type="text" name="resposta" placeholder="Sua resposta aqui" required>
+        <button type="submit">Próxima</button>
+    </form>
 </body>
 </html>
