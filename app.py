@@ -3,7 +3,7 @@ from flask import Flask, session, request, redirect, url_for, render_template
 app = Flask(__name__)
 app.secret_key = "chave-secreta-super-romantica"
 
-# Fases normais do jogo
+# Fases do jogo
 fases = [
     {"texto": "Antes de tudo começar…", "pergunta": "O que você sentiu quando me viu pela primeira vez?"},
     {"texto": "Nem tudo começou com certeza.", "pergunta": "O que te fez querer continuar falando comigo?"},
@@ -35,10 +35,11 @@ pedido_final = {
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    # Inicializa sessão
+    # Inicializa sessão de forma segura
     if "fase" not in session:
         session["fase"] = 0
-        session["respostas"] = []  # guarda respostas
+    if "respostas" not in session:
+        session["respostas"] = []
 
     if request.method == "POST":
         resposta = request.form.get("resposta", "").strip()
@@ -79,6 +80,7 @@ def resposta():
 
 @app.route("/reset")
 def reset():
+    # Reinicia jogo
     session.clear()
     return redirect(url_for("index"))
 
